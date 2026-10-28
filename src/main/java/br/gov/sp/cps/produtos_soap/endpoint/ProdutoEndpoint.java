@@ -1,5 +1,6 @@
 package br.gov.sp.cps.produtos_soap.endpoint;
 
+import br.gov.sp.cps.produtos_soap.exception.ProdutoNaoEncontradoException;
 import br.gov.sp.cps.produtos_soap.model.ConsultarProdutoRequest;
 import br.gov.sp.cps.produtos_soap.model.ConsultarProdutoResponse;
 
@@ -42,10 +43,8 @@ public class ProdutoEndpoint {
 
         } else {
 
-            response.setNome("Produto nao encontrado");
-            response.setDescricao("-");
-            response.setMarca("-");
-            response.setQuantidadeEstoque(0);
+            throw new ProdutoNaoEncontradoException(
+                    "Produto com código " + request.getCodigo() + " não encontrado");
         }
 
         return response;
